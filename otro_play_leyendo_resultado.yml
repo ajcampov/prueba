@@ -1,5 +1,5 @@
 - name: Cargar resultado anterior y usarlo
-  hosts: todos
+  hosts: all
   tasks:
     - name: Leer resultado de copia.sh
       slurp:
