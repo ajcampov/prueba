@@ -1,0 +1,15 @@
+- name: Cargar resultado anterior y usarlo
+  hosts: todos
+  tasks:
+    - name: Leer resultado de copia.sh
+      slurp:
+        src: /tmp/resultado_copia.txt
+      register: raw_result
+
+    - name: Decodificar salida
+      set_fact:
+        resultado_copia: "{{ raw_result.content | b64decode }}"
+
+    - name: Mostrar resultado
+      debug:
+        msg: "El resultado anterior fue: {{ resultado_copia }}"
