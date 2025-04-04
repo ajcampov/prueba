@@ -1,0 +1,21 @@
+---
+- name: Ejecutar script copia.sh y guardar el resultado
+  hosts: all
+  become: true
+  vars:
+    script_path: /tmp/copia.sh
+  tasks:
+
+    - name: Ejecutar el script copia.sh
+      shell: "{{ script_path }}"
+      register: resultado_copia
+      changed_when: false  # Para evitar marcar como 'changed' si no es necesario
+
+    - name: Mostrar salida del script
+      debug:
+        var: resultado_copia.stdout
+
+    - name: Guardar resultado en archivo temporal para uso posterior
+      copy:
+        content: "{{ resultado_copia.stdout }}"
+        dest: "/tmp/resultado_copia.txt"
